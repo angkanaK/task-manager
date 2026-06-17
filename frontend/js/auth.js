@@ -3,7 +3,7 @@ async function login() {
     const password = document.getElementById("password").value;
     const errorMsg = document.getElementById("error-msg");
 
-    const response = await fetch("http://127.0.0.1:8000/auth/login", {
+    const response = await fetch("https://task-manager-api-odbq.onrender.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -18,7 +18,6 @@ async function login() {
     } else {
         errorMsg.textContent = data.detail;
     }
-    
 }
 
 async function register() {
@@ -28,7 +27,7 @@ async function register() {
     const errorMsg = document.getElementById("error-msg");
     const successMsg = document.getElementById("success-msg");
 
-    const response = await fetch("http://127.0.0.1:8000/auth/register", {
+    const response = await fetch("https://task-manager-api-odbq.onrender.com/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password })

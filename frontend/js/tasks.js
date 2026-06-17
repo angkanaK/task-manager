@@ -1,5 +1,6 @@
 const user_id = localStorage.getItem("user_id");
 const username = localStorage.getItem("username");
+const API_URL = "https://task-manager-api-odbq.onrender.com";
 
 if (!user_id) {
     window.location.href = "index.html";
@@ -7,9 +8,8 @@ if (!user_id) {
 
 document.getElementById("welcome-msg").textContent = "สวัสดี " + username + "!";
 
-// ดึง Tasks ทั้งหมด
 async function getTasks() {
-    const response = await fetch(`http://127.0.0.1:8000/tasks/?user_id=${user_id}`);
+    const response = await fetch(`${API_URL}/tasks/?user_id=${user_id}`);
     const tasks = await response.json();
     
     const taskList = document.getElementById("task-list");
@@ -32,12 +32,11 @@ async function getTasks() {
     });
 }
 
-// สร้าง Task ใหม่
 async function createTask() {
     const title = document.getElementById("task-title").value;
     if (!title) return;
 
-    await fetch(`http://127.0.0.1:8000/tasks/?user_id=${user_id}`, {
+    await fetch(`${API_URL}/tasks/?user_id=${user_id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title })
@@ -47,9 +46,8 @@ async function createTask() {
     getTasks();
 }
 
-// อัปเดต Status
 async function updateTask(task_id, status) {
-    await fetch(`http://127.0.0.1:8000/tasks/${task_id}`, {
+    await fetch(`${API_URL}/tasks/${task_id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status })
@@ -57,9 +55,8 @@ async function updateTask(task_id, status) {
     getTasks();
 }
 
-// ลบ Task
 async function deleteTask(task_id) {
-    await fetch(`http://127.0.0.1:8000/tasks/${task_id}`, {
+    await fetch(`${API_URL}/tasks/${task_id}`, {
         method: "DELETE"
     });
     getTasks();
