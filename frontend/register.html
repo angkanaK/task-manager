@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - สมัครสมาชิก</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Task Manager</h1>
+            <h2>สมัครสมาชิก</h2>
+
+            <div id="error-msg" class="error-msg"></div>
+            <div id="success-msg" style="color:green; margin-bottom:16px;"></div>
+
+            <input type="text" id="username" placeholder="Username" />
+            <input type="email" id="email" placeholder="Email" />
+            <input type="password" id="password" placeholder="Password" />
+            <button onclick="register()">สมัครสมาชิก</button>
+
+            <p>มีบัญชีแล้ว? <a href="index.html">เข้าสู่ระบบ</a></p>
+        </div>
+    </div>
+    <script src="js/auth.js"></script>
+</body>
+</html>

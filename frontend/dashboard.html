@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container" style="max-width: 600px;">
+        <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h1>Task Manager</h1>
+                <button onclick="logout()" style="width:auto; padding: 8px 16px;">ออกจากระบบ</button>
+            </div>
+            <h2 id="welcome-msg"></h2>
+
+            <div style="display:flex; gap:8px; margin-bottom:16px;">
+                <input type="text" id="task-title" placeholder="ชื่อ Task" style="margin-bottom:0"/>
+                <button onclick="createTask()" style="width:auto; padding: 8px 16px; margin-bottom:0">เพิ่ม</button>
+            </div>
+
+            <div id="task-list"></div>
+        </div>
+    </div>
+    <script src="js/tasks.js"></script>
+</body>
+</html>
