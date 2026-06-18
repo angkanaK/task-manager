@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from database import get_db
 import models
+from auth_utils import get_current_user_id
 
 router = APIRouter()
 
@@ -19,7 +20,7 @@ class TaskUpdate(BaseModel):
 
 
 @router.post("/")
-def create_task(task: TaskCreate, user_id: int, db: Session = Depends(get_db)):
+def create_task(task: TaskCreate, db: Session = Depends(get_db), user_id: int = Depends(get_current_user_id)):
     new_task = models.Task(
         title=task.title,
         description=task.description,
@@ -33,14 +34,15 @@ def create_task(task: TaskCreate, user_id: int, db: Session = Depends(get_db)):
 
 
 @router.get("/")
-def get_tasks(user_id: int, db: Session = Depends(get_db)):
+def get_tasks(db: Session = Depends(get_db), user_id: int = Depends(get_current_user_id)):
     tasks = db.query(models.Task).filter(models.Task.user_id == user_id).all()
     return tasks
 
 
 @router.put("/{task_id}")
-def update_task(task_id: int, task: TaskUpdate, db: Session = Depends(get_db)):
-    db_task = db.query(models.Task).filter(models.Task.id == task_id).first()
+def update_task(task_id: int, task: TaskUpdate, db: Session = Depends(get_db), user_id: int = Depends(get_current_user_id)):
+    db_task = db.query(models.Task).filter(
+        models.Task.id == task_id, models.Task.user_id == user_id).first()
     if not db_task:
         raise HTTPException(status_code=404, detail="ไม่พบ Task นี้")
     if task.title:
@@ -55,8 +57,9 @@ def update_task(task_id: int, task: TaskUpdate, db: Session = Depends(get_db)):
 
 
 @router.delete("/{task_id}")
-def delete_task(task_id: int, db: Session = Depends(get_db)):
-    db_task = db.query(models.Task).filter(models.Task.id == task_id).first()
+def delete_task(task_id: int, db: Session = Depends(get_db), user_id: int = Depends(get_current_user_id)):
+    db_task = db.query(models.Task).filter(
+        models.Task.id == task_id, models.Task.user_id == user_id).first()
     if not db_task:
         raise HTTPException(status_code=404, detail="ไม่พบ Task นี้")
     db.delete(db_task)

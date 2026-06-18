@@ -24,5 +24,15 @@
         </div>
     </div>
     <script src="js/tasks.js"></script>
+
+    <div id="edit-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+    <div class="card" style="max-width:400px;">
+        <h2>แก้ไข Task</h2>
+        <input type="text" id="edit-title" placeholder="ชื่อ Task" />
+        <button onclick="saveEdit()">บันทึก</button>
+        <button onclick="closeEdit()" style="background-color:#999;">ยกเลิก</button>
+    </div>
+</div>
+
 </body>
 </html>
