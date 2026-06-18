@@ -1,3 +1,4 @@
+const API_URL = "https://task-manager-api-odbq.onrender.com";
 const token = localStorage.getItem("access_token");
 const username = localStorage.getItem("username");
 
@@ -8,7 +9,7 @@ if (!token) {
 document.getElementById("welcome-msg").textContent = "สวัสดี " + username + "!";
 
 async function getTasks() {
-    const response = await fetch("http://127.0.0.1:8000/tasks/", {
+    const response = await fetch(`${API_URL}/tasks/`, {
         headers: { "Authorization": "Bearer " + token }
     });
     
@@ -38,14 +39,13 @@ async function getTasks() {
             </div>
         `;
     });
-    
 }
 
 async function createTask() {
     const title = document.getElementById("task-title").value;
     if (!title) return;
 
-    await fetch("http://127.0.0.1:8000/tasks/", {
+    await fetch(`${API_URL}/tasks/`, {
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
@@ -59,7 +59,7 @@ async function createTask() {
 }
 
 async function updateTask(task_id, status) {
-    await fetch(`http://127.0.0.1:8000/tasks/${task_id}`, {
+    await fetch(`${API_URL}/tasks/${task_id}`, {
         method: "PUT",
         headers: { 
             "Content-Type": "application/json",
@@ -71,7 +71,7 @@ async function updateTask(task_id, status) {
 }
 
 async function deleteTask(task_id) {
-    await fetch(`http://127.0.0.1:8000/tasks/${task_id}`, {
+    await fetch(`${API_URL}/tasks/${task_id}`, {
         method: "DELETE",
         headers: { "Authorization": "Bearer " + token }
     });
@@ -101,7 +101,7 @@ async function saveEdit() {
     const title = document.getElementById("edit-title").value;
     if (!title) return;
 
-    await fetch(`http://127.0.0.1:8000/tasks/${editingTaskId}`, {
+    await fetch(`${API_URL}/tasks/${editingTaskId}`, {
         method: "PUT",
         headers: { 
             "Content-Type": "application/json",

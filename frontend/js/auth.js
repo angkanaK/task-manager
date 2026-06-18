@@ -1,3 +1,5 @@
+const API_URL = "https://task-manager-api-odbq.onrender.com";
+
 async function login() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -9,7 +11,7 @@ async function login() {
     errorMsg.textContent = "";
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/auth/login", {
+        const response = await fetch(`${API_URL}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
@@ -40,7 +42,7 @@ async function register() {
     const errorMsg = document.getElementById("error-msg");
     const successMsg = document.getElementById("success-msg");
 
-    const response = await fetch("https://task-manager-api-odbq.onrender.com/auth/register", {
+    const response = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password })
